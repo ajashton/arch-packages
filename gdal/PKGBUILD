@@ -4,8 +4,8 @@
 # Contributor: William Rea <sillywilly@gmail.com>
 
 pkgname=gdal
-pkgver=1.8.0
-pkgrel=6
+pkgver=1.8.1
+pkgrel=0
 pkgdesc="A translator library for raster geospatial data formats"
 arch=('i686' 'x86_64')
 url="http://www.gdal.org/"
@@ -28,7 +28,7 @@ build() {
   export CFLAGS="$CFLAGS -fno-strict-aliasing"
 
   # bug 23654
-  export LDFLAGS="$LDFLAGS -Wl,--as-needed" 
+  export LDFLAGS="$LDFLAGS -Wl,--as-needed -L/usr/local/lib" 
 
   cd ${srcdir}/$pkgname-$pkgver
   patch -Np0 -i ${srcdir}/gdal-1.5.1-python-install.patch
@@ -39,9 +39,9 @@ build() {
       sed -i 's_#!/usr/bin/env python_#!/usr/bin/env python2_' $file
   done
 
-  ./configure --prefix=/usr --with-netcdf --with-libtiff --with-sqlite3 \
+  ./configure --prefix=/usr --with-netcdf --with-libtiff=/usr/local/lib --with-sqlite3 \
               --with-geotiff --with-mysql --with-python --without-libtool --with-curl \
-              --with-hdf5 --with-perl --with-geos --with-png
+              --with-hdf5 --with-perl --with-geos --with-png --with-jpeg=/usr/lib
 
 # workaround for bug #13646
   sed -i 's/PY_HAVE_SETUPTOOLS=1/PY_HAVE_SETUPTOOLS=/g' ./GDALmake.opt
