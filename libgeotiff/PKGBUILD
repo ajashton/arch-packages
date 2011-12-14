@@ -17,6 +17,7 @@ md5sums=('6ac3c22e44711e9a3add9044e40b9527')
 
 build() {
 	cd "$srcdir/$pkgname-$pkgver"
+  export LDFLAGS="$LDFLAGS -L/usr/local/lib" 
 	./configure --prefix=/usr
  	make
 }
