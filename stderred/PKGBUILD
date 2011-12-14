@@ -26,7 +26,7 @@ build() {
   msg "Starting build..."
 
   rm -rf "$srcdir/$_gitname-build"
-  git clone "$srcdir/$_gitname" "$srcdir/$_gitname-build"
+  git clone "$srcdir/$_gitname" "$srcdir/$_gitname-build" --depth=1
   cd "$srcdir/$_gitname-build"
 
   if [ ${CARCH} = "x86_64" ]; then
@@ -38,12 +38,15 @@ build() {
 
 package() {
   cd "$srcdir/$_gitname-build"
+
   install -d "${pkgdir}"/usr/lib
   if [ ${CARCH} = "x86_64" ]; then
     cp ./lib64/stderred.so "${pkgdir}"/usr/lib/
   else
     cp ./lib/stderred.so "${pkgdir}"/usr/lib/
   fi
+
+  install -D -m644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
 
 # vim:set ts=2 sw=2 et:
