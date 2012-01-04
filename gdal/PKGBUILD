@@ -17,11 +17,11 @@ optdepends=('postgresql: postgresql database support'
             'perl:  perl binding support'
             'swig:  perl binding support')
 options=('!libtool' '!makeflags')
-changelog=$pkgname.changelog
 source=(http://download.osgeo.org/${pkgname}/${pkgname}-${pkgver}.tar.gz \
 	gdal-1.5.1-python-install.patch) 
 
-md5sums=('c762cdab0f7e51a677ba49278a8a263d' '81afc1c26d29cee84aadb6924fe33861')
+md5sums=('b32269893afc9dc9eced45e74e4c6bb4'
+         '81afc1c26d29cee84aadb6924fe33861')
 
 
 build() {
